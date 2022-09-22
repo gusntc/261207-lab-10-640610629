@@ -4,6 +4,19 @@ import { v4 as uuidv4 } from "uuid";
 export default function roomIdMessageRoute(req, res) {
   if (req.method === "GET") {
     const rooms = readDB();
+    const roomId = req.query.roomId;
+    const RoomIdx = rooms.findIndex((x) => x.roomId === roomId);
+    if (RoomIdx === -1) {
+      return res.status(404).json({ ok: false, message: "Invalid room id" });
+    }
+    const result = [];
+    const newMessage = [];
+    for (const room of rooms) {
+      for (const message in room.messages) {
+      }
+      newMessage.push(message);
+    }
+    return res.json({ ok: true, message: newMessage });
   } else if (req.method === "POST") {
     const rooms = readDB();
 
