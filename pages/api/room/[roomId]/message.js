@@ -8,14 +8,15 @@ export default function roomIdMessageRoute(req, res) {
     const RoomIdx = rooms.findIndex((x) => x.roomId === roomId);
     if (RoomIdx === -1) {
       return res.status(404).json({ ok: false, message: "Invalid room id" });
-    }
-    const newMessage = [];
-    for (const room of rooms) {
-      for (const message in room.messages) {
-        newMessage.push(message);
+    } else {
+      const newMessage = [];
+      for (const room of rooms) {
+        for (const message in room.messages) {
+          newMessage.push({ messageId: message.messageId, text: message.text });
+        }
       }
+      return res.json({ ok: true, message: newMessage });
     }
-    return res.json({ ok: true, message: newMessage });
   } else if (req.method === "POST") {
     const rooms = readDB();
 
