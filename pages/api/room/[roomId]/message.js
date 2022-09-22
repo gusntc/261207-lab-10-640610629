@@ -34,7 +34,10 @@ export default function roomIdMessageRoute(req, res) {
           newMessage.push({ messageId: message.messageId, text: message.text });
         }
         newMessage.push({ messageId: newId, text: text });
-        return res.status(200).json({ ok: true, message: newMessage });
+        writeDB(newMessage);
+        return res
+          .status(200)
+          .json({ ok: true, message: { messageId: newId, text: text } });
       } else {
         return res
           .status(400)
