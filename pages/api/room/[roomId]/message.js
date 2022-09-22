@@ -11,7 +11,7 @@ export default function roomIdMessageRoute(req, res) {
     } else {
       const newMessage = [];
       for (const room of rooms) {
-        for (const message of room.messages) {
+        for (const message of room[RoomIdx].messages) {
           newMessage.push({ messageId: message.messageId, text: message.text });
         }
       }
