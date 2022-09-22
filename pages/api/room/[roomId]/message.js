@@ -10,10 +10,8 @@ export default function roomIdMessageRoute(req, res) {
       return res.status(404).json({ ok: false, message: "Invalid room id" });
     } else {
       const newMessage = [];
-      for (const room of rooms) {
-        for (const message of room[RoomIdx].messages) {
-          newMessage.push({ messageId: message.messageId, text: message.text });
-        }
+      for (const message of rooms[RoomIdx].messages) {
+        newMessage.push({ messageId: message.messageId, text: message.text });
       }
       return res.json({ ok: true, message: newMessage });
     }
