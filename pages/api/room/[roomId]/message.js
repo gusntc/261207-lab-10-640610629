@@ -29,12 +29,9 @@ export default function roomIdMessageRoute(req, res) {
       return res.status(404).json({ ok: false, message: "Invalid room id" });
     } else {
       if (typeof text === "string") {
-        const newMessage = [];
-        for (const message of rooms[RoomIdx].messages) {
-          newMessage.push({ messageId: message.messageId, text: message.text });
-        }
-        newMessage.push({ messageId: newId, text: text });
-        writeDB(newMessage);
+        const newMessage = { messageId: newId, text: text };
+        rooms[RoomIdx].messages.push(newMessage);
+        writeDB(rooms);
         return res
           .status(200)
           .json({ ok: true, message: { messageId: newId, text: text } });
